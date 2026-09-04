@@ -1,0 +1,329 @@
+{
+  "$comment": "Controlled vocabularies for the enriched social record. Values marked configuration must be replaced when adapting to another case study.",
+  "version": "1.0.0",
+  "stakeholder_category": {
+    "portable": true,
+    "values": [
+      "Institutional & Governance",
+      "Design & Technical Teams",
+      "Community Stakeholders",
+      "Funding & Strategic Partners",
+      "Academic",
+      "Media",
+      "Unclear"
+    ]
+  },
+  "posting_pattern": {
+    "portable": true,
+    "status": "derived",
+    "values": [
+      "frequent",
+      "regular",
+      "occasional",
+      "rare",
+      "single_post"
+    ],
+    "thresholds": {
+      "frequent": ">=3.0/week",
+      "regular": "1.0-2.99",
+      "occasional": "0.25-0.99",
+      "rare": "<0.25 with >1 post",
+      "single_post": "exactly 1"
+    }
+  },
+  "possible_age_cue": {
+    "portable": false,
+    "note": "brackets derived from the reference perception survey",
+    "values": [
+      "<15",
+      "16-24",
+      "25-34",
+      "35-44",
+      "45-60",
+      "60-70",
+      "70+",
+      "unclear",
+      "not_applicable_institutional"
+    ]
+  },
+  "possible_gender_cue": {
+    "portable": true,
+    "values": [
+      "possible_male",
+      "possible_female",
+      "unclear",
+      "not_applicable_institutional"
+    ]
+  },
+  "live_in_live_out_status": {
+    "portable": true,
+    "values": [
+      "likely_local_resident",
+      "possibly_local",
+      "works_in_area",
+      "visitor",
+      "external_observer",
+      "external_partner",
+      "unclear"
+    ]
+  },
+  "confidence": {
+    "portable": true,
+    "values": [
+      "high",
+      "medium",
+      "low"
+    ],
+    "semantics": "strength of available evidence, NOT probability of correctness"
+  },
+  "urban_activities": {
+    "portable": false,
+    "multi_label": true,
+    "values": [
+      "Housing",
+      "Health services",
+      "Early childhood",
+      "Education",
+      "Other public services",
+      "Public transport",
+      "Retail & shopping",
+      "Community spaces",
+      "Sport services",
+      "Entertainment",
+      "Other services"
+    ]
+  },
+  "physical_urban_problems": {
+    "portable": false,
+    "multi_label": true,
+    "values": [
+      "Infrastructure/Buildings",
+      "Transportation/Congestion",
+      "Air quality",
+      "Green spaces",
+      "Noise",
+      "Construction disruption",
+      "Waste/Cleanliness",
+      "Energy/Thermal"
+    ]
+  },
+  "socioeconomic_problems": {
+    "portable": false,
+    "multi_label": true,
+    "values": [
+      "Economic/Poverty",
+      "Security/Safety",
+      "Health problems",
+      "Social isolation",
+      "Social equity",
+      "Housing precarity",
+      "Education/Youth",
+      "Community disruption"
+    ]
+  },
+  "focus_area": {
+    "portable": false,
+    "multi_label": true,
+    "note": "CONFIGURATION. Replace with the strategic priorities of your own programme.",
+    "values": [
+      "1. Positive Health Neighbourhood",
+      "2. Accessibility & Opening to the North",
+      "3. Diverse & High-Quality Housing",
+      "4. Economic Activity & Quality Public Services",
+      "5. Improving Residents' Social Conditions",
+      "none"
+    ]
+  },
+  "issue_type": {
+    "portable": true,
+    "multi_label": true,
+    "values": [
+      "physical",
+      "environmental",
+      "social",
+      "safety",
+      "mobility",
+      "health",
+      "service-related",
+      "none"
+    ]
+  },
+  "sentiment_class": {
+    "portable": true,
+    "values": [
+      "positive",
+      "neutral",
+      "negative",
+      "mixed"
+    ],
+    "reproducibility": {
+      "raw_agreement_range": [
+        0.443,
+        0.588
+      ],
+      "kappa_range": [
+        0.004,
+        0.397
+      ],
+      "note": "least reproducible field; disagreement concentrates in negative and mixed"
+    }
+  },
+  "emotional_signal": {
+    "portable": true,
+    "positive_family": [
+      "pride/attachment",
+      "hope",
+      "gratitude/satisfaction",
+      "joy/celebration",
+      "general_positive"
+    ],
+    "negative_family": [
+      "fear/insecurity",
+      "frustration/exasperation",
+      "anger/indignation",
+      "sadness/disappointment",
+      "concern/anxiety",
+      "neglect/abandonment",
+      "disgust/degradation",
+      "general_negative"
+    ],
+    "other": [
+      "mixed",
+      "none"
+    ]
+  },
+  "engagement_level": {
+    "portable": false,
+    "status": "derived",
+    "note": "STUDY-SPECIFIC operational intervals. No established agreement on thresholds exists.",
+    "values": [
+      "viral",
+      "very_high",
+      "high",
+      "moderate",
+      "low",
+      "minimal",
+      "no_engagement"
+    ],
+    "thresholds": {
+      "viral": "500+",
+      "very_high": "100-499",
+      "high": "50-99",
+      "moderate": "20-49",
+      "low": "5-19",
+      "minimal": "1-4",
+      "no_engagement": "0"
+    }
+  },
+  "time_of_day": {
+    "portable": false,
+    "status": "derived",
+    "note": "researcher-defined descriptive intervals, not universal behavioural thresholds",
+    "intervals": {
+      "early_morning": "06:00-07:59",
+      "morning": "08:00-11:59",
+      "midday": "12:00-13:59",
+      "afternoon": "14:00-16:59",
+      "evening": "17:00-19:59",
+      "late_evening": "20:00-22:59",
+      "night": "23:00-05:59"
+    }
+  },
+  "project_phase": {
+    "portable": false,
+    "status": "derived",
+    "note": "CONFIGURATION: phase boundaries from your programme timeline",
+    "values": [
+      "pre_programme",
+      "phase_1",
+      "phase_2",
+      "post_programme"
+    ]
+  },
+  "repost_or_repetition_indicator": {
+    "portable": false,
+    "status": "derived",
+    "values": [
+      "retweet",
+      "highly_shared",
+      "widely_shared",
+      "moderately_shared",
+      "shared",
+      "original/not_shared"
+    ],
+    "thresholds": {
+      "highly_shared": "1000+",
+      "widely_shared": "100-999",
+      "moderately_shared": "10-99",
+      "shared": "1-9"
+    }
+  },
+  "multimedia_type": {
+    "portable": true,
+    "values": [
+      "photo",
+      "carousel",
+      "video",
+      "mixed_media",
+      "animated_gif",
+      "text_only"
+    ]
+  },
+  "spatial_evidence_source": {
+    "portable": true,
+    "values": [
+      "platform_metadata",
+      "body_text",
+      "hashtag",
+      "facility_match",
+      "street_match",
+      "zone_match",
+      "alias_match",
+      "none"
+    ]
+  },
+  "keyword_taxonomy_layer": {
+    "portable": true,
+    "values": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6"
+    ]
+  },
+  "keyword_frequency_weight": {
+    "portable": true,
+    "values": [
+      "tier_1",
+      "tier_2",
+      "tier_3",
+      "tier_4",
+      "tier_5"
+    ],
+    "thresholds": {
+      "tier_1": ">=500",
+      "tier_2": "100-499",
+      "tier_3": "20-99",
+      "tier_4": "5-19",
+      "tier_5": "1-4"
+    }
+  },
+  "field_status": {
+    "portable": true,
+    "values": [
+      "Observed",
+      "Derived",
+      "Inferred-structural",
+      "Inferred-semantic",
+      "Provenance"
+    ],
+    "reproducibility": {
+      "Observed": "100%",
+      "Derived": "100%",
+      "Inferred-structural": "100%",
+      "Inferred-semantic": "44.3%-86.3%"
+    }
+  }
+}

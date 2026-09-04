@@ -1,0 +1,81 @@
+Copyright (c) 2026 Saleh Qanazi. All rights reserved.
+
+SDT AI AGENTS — TERMS OF USE
+
+This repository is published for the purposes of academic transparency,
+methodological inspection, peer review, and verification of published research.
+It is NOT open-source software and NOT an open-content dataset.
+
+
+1. PERMITTED WITHOUT PRIOR PERMISSION
+
+You may, without asking:
+
+  a. Read, view, and download this repository for private study.
+  b. Quote from it, cite it, and reference it in academic work, review,
+     criticism, or verification, provided the source is attributed as set
+     out in CITATION.cff.
+  c. Execute the published specifications for the sole purpose of verifying
+     or replicating the results reported by the author, provided the results
+     of such verification are not published as your own method.
+
+
+2. REQUIRES WRITTEN PERMISSION
+
+You may NOT, without prior written permission from the copyright holder:
+
+  a. Use these specifications, prompts, schemas, or procedures in your own
+     research, teaching, consultancy, or any other project.
+  b. Modify, adapt, translate, or create derivative works from them.
+  c. Redistribute them, in whole or in part, in any medium, including as part
+     of another repository, package, dataset, publication, or product.
+  d. Use them for any commercial purpose whatsoever.
+  e. Use them as training data, fine-tuning data, or evaluation data for any
+     machine learning or artificial intelligence system.
+
+Requests for permission should be directed to the contact address in
+CITATION.cff. Permission, where granted, will be granted in writing, will
+specify the permitted scope, and does not transfer any ownership.
+
+
+3. ATTRIBUTION
+
+Where use is permitted or granted, attribution must identify the author and
+the specific version or release used. Attribution must not imply endorsement
+of your work by the author.
+
+
+4. NO WARRANTY
+
+THIS WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, ACCURACY, OR NON-INFRINGEMENT. THE
+SPECIFICATIONS DESCRIBE A RESEARCH METHOD, NOT A PRODUCTION SYSTEM, AND
+THEIR OUTPUTS ARE PROBABILISTIC. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THIS WORK OR
+RELIANCE ON ITS OUTPUTS.
+
+
+5. THIRD-PARTY MATERIAL AND DOWNSTREAM OBLIGATIONS
+
+This repository publishes a method, not the data it was applied to. No social
+media content, personal data, or third-party licensed material is included.
+
+Anyone executing these specifications remains solely responsible for their own
+compliance with:
+
+  - the terms of service of any platform from which data is collected;
+  - applicable data protection law, including the General Data Protection
+    Regulation (GDPR) where it applies;
+  - the ethical approval requirements of their own institution;
+  - the licence terms of any tool, model, or API they use for execution.
+
+Nothing in this licence grants any right in respect of such third-party
+material or relieves any user of these obligations.
+
+
+6. GOVERNING TERMS
+
+These terms apply to all files in this repository unless a file explicitly
+states otherwise. If any provision is found unenforceable, the remaining
+provisions continue in effect.

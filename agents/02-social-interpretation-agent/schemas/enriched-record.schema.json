@@ -1,0 +1,839 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/saleh-qanazi/sdt-ai-agents/agents/02-social-interpretation-agent/schemas/enriched-record.schema.json",
+  "title": "Enriched Social Record",
+  "description": "Output contract of the Processing and Social Interpretation Agent. Field 'status' distinguishes Observed and Derived fields (100% reproducible) from Inferred-semantic fields (44.3%-86.3%). Downstream claims must respect this distinction.",
+  "version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "post_id": {
+      "status": "Observed",
+      "type": "string",
+      "description": "Pipeline-unique record identifier",
+      "nullable": false
+    },
+    "source_record_id": {
+      "status": "Observed",
+      "type": "string",
+      "description": "Platform-native identifier, stored as STRING to avoid float precision collisions",
+      "nullable": false
+    },
+    "prepared_record_id": {
+      "status": "Observed",
+      "type": "string",
+      "description": "Identifier from the preparation stage",
+      "nullable": false
+    },
+    "run_id": {
+      "status": "Provenance",
+      "type": "string",
+      "description": "UUID of the processing run",
+      "nullable": false
+    },
+    "agent_id": {
+      "status": "Provenance",
+      "type": "string",
+      "description": "Executing agent",
+      "enum": [
+        "agent_1_preparation",
+        "agent_2_interpretation",
+        "agent_3_validation"
+      ],
+      "nullable": false
+    },
+    "prompt_version": {
+      "status": "Provenance",
+      "type": "string",
+      "description": "Specification version, semver",
+      "nullable": false
+    },
+    "model_version": {
+      "status": "Provenance",
+      "type": "string",
+      "description": "Model identifier used as execution engine",
+      "nullable": false
+    },
+    "parameter_profile": {
+      "status": "Provenance",
+      "type": "string",
+      "description": "Batch size, scope, and other run parameters",
+      "nullable": false
+    },
+    "processed_timestamp": {
+      "status": "Provenance",
+      "type": "string",
+      "description": "When interpreted; distinct from publication and collection time",
+      "nullable": false,
+      "format": "date-time"
+    },
+    "stakeholder_category": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Broad actor category",
+      "enum": [
+        "Institutional & Governance",
+        "Design & Technical Teams",
+        "Community Stakeholders",
+        "Funding & Strategic Partners",
+        "Academic",
+        "Media",
+        "Unclear"
+      ],
+      "nullable": false,
+      "reproducibility": {
+        "raw_agreement": 0.863,
+        "kappa": 0.227
+      }
+    },
+    "stakeholder_institution": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Canonical organisation name; 'Citizen' for individuals; NEVER a personal name",
+      "nullable": false
+    },
+    "platform": {
+      "status": "Observed",
+      "type": "string",
+      "description": "Source platform",
+      "nullable": false
+    },
+    "posting_pattern": {
+      "status": "Derived",
+      "type": "string",
+      "description": "Weekly posting frequency band",
+      "enum": [
+        "frequent",
+        "regular",
+        "occasional",
+        "rare",
+        "single_post"
+      ],
+      "nullable": false,
+      "derivation": "posts / span_in_weeks",
+      "thresholds": {
+        "frequent": ">=3.0/week",
+        "regular": "1.0-2.99",
+        "occasional": "0.25-0.99",
+        "rare": "<0.25 with >1 post",
+        "single_post": "exactly 1"
+      }
+    },
+    "possible_age_cue": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Age cue where evidence exists; 'unclear' expected majority",
+      "enum": [
+        "<15",
+        "16-24",
+        "25-34",
+        "35-44",
+        "45-60",
+        "60-70",
+        "70+",
+        "unclear",
+        "not_applicable_institutional"
+      ],
+      "nullable": false
+    },
+    "age_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Strength of evidence, not probability of correctness",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "nullable": false
+    },
+    "age_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Specific textual evidence; restating the value is invalid",
+      "nullable": false
+    },
+    "possible_gender_cue": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Gender cue; culturally dependent and always uncertain",
+      "enum": [
+        "possible_male",
+        "possible_female",
+        "unclear",
+        "not_applicable_institutional"
+      ],
+      "nullable": false
+    },
+    "gender_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Name-based inference never exceeds medium",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "nullable": false
+    },
+    "gender_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Name pattern or grammatical evidence used",
+      "nullable": false
+    },
+    "live_in_live_out_status": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Relation of actor to the study area",
+      "enum": [
+        "likely_local_resident",
+        "possibly_local",
+        "works_in_area",
+        "visitor",
+        "external_observer",
+        "external_partner",
+        "unclear"
+      ],
+      "nullable": false
+    },
+    "live_status_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Strength of spatial, textual and actor evidence",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "nullable": false
+    },
+    "live_status_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Which evidence types were present",
+      "nullable": false
+    },
+    "profile_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Never higher than the highest individual field confidence",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "nullable": false
+    },
+    "profile_review_flag": {
+      "status": "Inferred-structural",
+      "type": "string",
+      "description": "Routes record to researcher review",
+      "enum": [
+        "yes",
+        "no"
+      ],
+      "nullable": false
+    },
+    "urban_activities": {
+      "status": "Inferred-semantic",
+      "type": "array",
+      "description": "Activities or services discussed",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Housing",
+          "Health services",
+          "Early childhood",
+          "Education",
+          "Other public services",
+          "Public transport",
+          "Retail & shopping",
+          "Community spaces",
+          "Sport services",
+          "Entertainment",
+          "Other services"
+        ]
+      },
+      "nullable": true
+    },
+    "activities_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "'Activity: evidence' pairs, pipe-separated",
+      "nullable": false
+    },
+    "physical_urban_problems": {
+      "status": "Inferred-semantic",
+      "type": "array",
+      "description": "Physical and environmental concerns",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Infrastructure/Buildings",
+          "Transportation/Congestion",
+          "Air quality",
+          "Green spaces",
+          "Noise",
+          "Construction disruption",
+          "Waste/Cleanliness",
+          "Energy/Thermal"
+        ]
+      },
+      "nullable": true
+    },
+    "physical_problems_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Explicit=high, indirect=medium, hint=low",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "nullable": true
+    },
+    "physical_problems_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Evidence per assignment; keyword_id where taxonomy contributed",
+      "nullable": true
+    },
+    "physical_problems_motivation": {
+      "status": "Interpretation",
+      "type": "string",
+      "description": "CONTEXT about the issue from survey/documents. NEVER the author's motivation",
+      "nullable": true
+    },
+    "socioeconomic_problems": {
+      "status": "Inferred-semantic",
+      "type": "array",
+      "description": "Socioeconomic concerns",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Economic/Poverty",
+          "Security/Safety",
+          "Health problems",
+          "Social isolation",
+          "Social equity",
+          "Housing precarity",
+          "Education/Youth",
+          "Community disruption"
+        ]
+      },
+      "nullable": true
+    },
+    "socioeconomic_problems_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "As physical",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "nullable": true
+    },
+    "socioeconomic_problems_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Evidence per assignment",
+      "nullable": true
+    },
+    "socioeconomic_problems_motivation": {
+      "status": "Interpretation",
+      "type": "string",
+      "description": "CONTEXT only; never attributed personal motivation",
+      "nullable": true
+    },
+    "focus_area": {
+      "status": "Inferred-semantic",
+      "type": "array",
+      "description": "CONFIGURATION: programme strategic priorities",
+      "items": {
+        "type": "string",
+        "enum": [
+          "1. Positive Health Neighbourhood",
+          "2. Accessibility & Opening to the North",
+          "3. Diverse & High-Quality Housing",
+          "4. Economic Activity & Quality Public Services",
+          "5. Improving Residents' Social Conditions",
+          "none"
+        ]
+      },
+      "nullable": true
+    },
+    "focus_area_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Evidence per assigned focus area",
+      "nullable": true
+    },
+    "issue_type": {
+      "status": "Inferred-structural",
+      "type": "array",
+      "description": "Consolidation of detailed problem fields; must be consistent with them",
+      "items": {
+        "type": "string",
+        "enum": [
+          "physical",
+          "environmental",
+          "social",
+          "safety",
+          "mobility",
+          "health",
+          "service-related",
+          "none"
+        ]
+      },
+      "nullable": false
+    },
+    "matched_keyword": {
+      "status": "Observed",
+      "type": "string",
+      "description": "Keyword that triggered collection",
+      "nullable": false
+    },
+    "keyword_taxonomy_layer": {
+      "status": "Derived",
+      "type": "string",
+      "description": "Mechanical taxonomy lookup",
+      "enum": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "nullable": true
+    },
+    "keyword_frequency_weight": {
+      "status": "Derived",
+      "type": "string",
+      "description": "Mechanical weight-tier lookup",
+      "enum": [
+        "tier_1",
+        "tier_2",
+        "tier_3",
+        "tier_4",
+        "tier_5"
+      ],
+      "nullable": true
+    },
+    "additional_keywords_found": {
+      "status": "Derived",
+      "type": "array",
+      "description": "Related taxonomy terms present beyond the collection keyword",
+      "items": {
+        "type": "string"
+      },
+      "nullable": true
+    },
+    "activities_review_flag": {
+      "status": "Inferred-structural",
+      "type": "string",
+      "description": "Routes record to review",
+      "enum": [
+        "yes",
+        "no"
+      ],
+      "nullable": false
+    },
+    "sentiment_class": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Expressed evaluative orientation",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative",
+        "mixed"
+      ],
+      "nullable": false,
+      "reproducibility": {
+        "raw_agreement_range": [
+          0.443,
+          0.588
+        ],
+        "kappa_range": [
+          0.004,
+          0.397
+        ],
+        "note": "least reproducible field; disagreement concentrates in negative and mixed"
+      }
+    },
+    "sentiment_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "INVERSELY related to cross-method stability; not a reliability filter",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "nullable": false
+    },
+    "sentiment_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Specific markers identified; restating the class is invalid",
+      "nullable": false
+    },
+    "emotional_signal": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Specific affective signal; must match sentiment family",
+      "enum": [
+        "pride/attachment",
+        "hope",
+        "gratitude/satisfaction",
+        "joy/celebration",
+        "general_positive",
+        "fear/insecurity",
+        "frustration/exasperation",
+        "anger/indignation",
+        "sadness/disappointment",
+        "concern/anxiety",
+        "neglect/abandonment",
+        "disgust/degradation",
+        "general_negative",
+        "mixed",
+        "none"
+      ],
+      "nullable": false
+    },
+    "total_engagement": {
+      "status": "Derived",
+      "type": "integer",
+      "description": "Sum of AVAILABLE interaction counts; absent measures excluded, never zero-filled",
+      "nullable": false
+    },
+    "engagement_fields_available": {
+      "status": "Derived",
+      "type": "array",
+      "description": "Which measures entered the sum",
+      "items": {
+        "type": "string"
+      },
+      "nullable": false
+    },
+    "engagement_level": {
+      "status": "Derived",
+      "type": "string",
+      "description": "STUDY-SPECIFIC bands",
+      "enum": [
+        "viral",
+        "very_high",
+        "high",
+        "moderate",
+        "low",
+        "minimal",
+        "no_engagement"
+      ],
+      "nullable": false,
+      "thresholds": {
+        "viral": "500+",
+        "very_high": "100-499",
+        "high": "50-99",
+        "moderate": "20-49",
+        "low": "5-19",
+        "minimal": "1-4",
+        "no_engagement": "0"
+      }
+    },
+    "engagement_sentiment_proxy": {
+      "status": "Derived",
+      "type": "string",
+      "description": "engagement_level + '_' + sentiment_class; a label, not a measure",
+      "nullable": false
+    },
+    "sentiment_review_flag": {
+      "status": "Inferred-structural",
+      "type": "string",
+      "description": "Routes record to review",
+      "enum": [
+        "yes",
+        "no"
+      ],
+      "nullable": false
+    },
+    "emotion_review_flag": {
+      "status": "Inferred-structural",
+      "type": "string",
+      "description": "Routes record to review",
+      "enum": [
+        "yes",
+        "no"
+      ],
+      "nullable": false
+    },
+    "place_name": {
+      "status": "Observed|Inferred-semantic",
+      "type": "string",
+      "description": "Most specific place; 'none' where no evidence. Do NOT default to study area",
+      "nullable": false
+    },
+    "street_level": {
+      "status": "Derived|Inferred-semantic",
+      "type": "string",
+      "description": "Street from facility lookup or direct naming; never inferred from a zone",
+      "nullable": false
+    },
+    "zone_level": {
+      "status": "Derived|Inferred-semantic",
+      "type": "string",
+      "description": "Zone from street/facility lookup or direct naming",
+      "nullable": false
+    },
+    "place_confidence": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Strength of spatial evidence",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "nullable": false
+    },
+    "place_justification": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Evidence source and lookup path; distinguishes geotag from inference",
+      "nullable": false
+    },
+    "spatial_evidence_source": {
+      "status": "Inferred-structural",
+      "type": "string",
+      "description": "Machine-readable evidence source",
+      "enum": [
+        "platform_metadata",
+        "body_text",
+        "hashtag",
+        "facility_match",
+        "street_match",
+        "zone_match",
+        "alias_match",
+        "none"
+      ],
+      "nullable": false
+    },
+    "time_of_day": {
+      "status": "Derived",
+      "type": "string",
+      "description": "From timestamp hour; researcher-defined intervals",
+      "enum": [
+        "early_morning",
+        "morning",
+        "midday",
+        "afternoon",
+        "evening",
+        "late_evening",
+        "night"
+      ],
+      "nullable": true,
+      "intervals": {
+        "early_morning": "06:00-07:59",
+        "morning": "08:00-11:59",
+        "midday": "12:00-13:59",
+        "afternoon": "14:00-16:59",
+        "evening": "17:00-19:59",
+        "late_evening": "20:00-22:59",
+        "night": "23:00-05:59"
+      }
+    },
+    "day_of_week": {
+      "status": "Derived",
+      "type": "string",
+      "description": "From timestamp",
+      "enum": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "nullable": true
+    },
+    "year_month": {
+      "status": "Derived",
+      "type": "string",
+      "description": "YYYY-MM from timestamp",
+      "nullable": true,
+      "pattern": "^[0-9]{4}-[0-9]{2}$"
+    },
+    "project_phase": {
+      "status": "Derived",
+      "type": "string",
+      "description": "CONFIGURATION: from programme timeline",
+      "enum": [
+        "pre_programme",
+        "phase_1",
+        "phase_2",
+        "post_programme"
+      ],
+      "nullable": true
+    },
+    "repost_or_repetition_indicator": {
+      "status": "Derived",
+      "type": "string",
+      "description": "STUDY-SPECIFIC share bands",
+      "enum": [
+        "retweet",
+        "highly_shared",
+        "widely_shared",
+        "moderately_shared",
+        "shared",
+        "original/not_shared"
+      ],
+      "nullable": false,
+      "thresholds": {
+        "highly_shared": "1000+",
+        "widely_shared": "100-999",
+        "moderately_shared": "10-99",
+        "shared": "1-9"
+      }
+    },
+    "has_multimedia": {
+      "status": "Observed",
+      "type": "string",
+      "description": "Presence of associated media",
+      "enum": [
+        "yes",
+        "no"
+      ],
+      "nullable": false
+    },
+    "multimedia_type": {
+      "status": "Observed|Derived",
+      "type": "string",
+      "description": "Media form",
+      "enum": [
+        "photo",
+        "carousel",
+        "video",
+        "mixed_media",
+        "animated_gif",
+        "text_only"
+      ],
+      "nullable": false
+    },
+    "context_note": {
+      "status": "Inferred-semantic",
+      "type": "string",
+      "description": "Interpretive context no other field captures",
+      "nullable": true
+    },
+    "context_review_flag": {
+      "status": "Inferred-structural",
+      "type": "string",
+      "description": "Routes record to review",
+      "enum": [
+        "yes",
+        "no"
+      ],
+      "nullable": false
+    }
+  },
+  "required": [
+    "post_id",
+    "source_record_id",
+    "prepared_record_id",
+    "run_id",
+    "agent_id",
+    "prompt_version",
+    "model_version",
+    "parameter_profile",
+    "processed_timestamp",
+    "stakeholder_category",
+    "stakeholder_institution",
+    "platform",
+    "posting_pattern",
+    "possible_age_cue",
+    "age_confidence",
+    "age_justification",
+    "possible_gender_cue",
+    "gender_confidence",
+    "gender_justification",
+    "live_in_live_out_status",
+    "live_status_confidence",
+    "live_status_justification",
+    "profile_confidence",
+    "profile_review_flag",
+    "activities_justification",
+    "issue_type",
+    "matched_keyword",
+    "activities_review_flag",
+    "sentiment_class",
+    "sentiment_confidence",
+    "sentiment_justification",
+    "emotional_signal",
+    "total_engagement",
+    "engagement_fields_available",
+    "engagement_level",
+    "engagement_sentiment_proxy",
+    "sentiment_review_flag",
+    "emotion_review_flag",
+    "place_name",
+    "street_level",
+    "zone_level",
+    "place_confidence",
+    "place_justification",
+    "spatial_evidence_source",
+    "repost_or_repetition_indicator",
+    "has_multimedia",
+    "multimedia_type",
+    "context_review_flag"
+  ],
+  "x-coherence-constraints": [
+    {
+      "id": "T2",
+      "rule": "sentiment_class=positive implies emotional_signal in positive family or none"
+    },
+    {
+      "id": "T3",
+      "rule": "sentiment_class=negative implies emotional_signal in negative family or none"
+    },
+    {
+      "id": "T4",
+      "rule": "emotional_signal=mixed iff sentiment_class=mixed"
+    },
+    {
+      "id": "T5",
+      "rule": "institutional stakeholder_category implies live_in_live_out_status not in {likely_local_resident, possibly_local} AND age/gender cue = not_applicable_institutional"
+    },
+    {
+      "id": "T6",
+      "rule": "engagement_level matches total_engagement thresholds; absent measures never counted as zero"
+    },
+    {
+      "id": "T7",
+      "rule": "time_of_day matches hour component of timestamp_final"
+    },
+    {
+      "id": "T8",
+      "rule": "project_phase matches year of timestamp_final against timeline"
+    },
+    {
+      "id": "T9",
+      "rule": "has_multimedia=no iff multimedia_type=text_only"
+    },
+    {
+      "id": "T10",
+      "rule": "street_level implies zone_level equals that street's zone in the reference table"
+    },
+    {
+      "id": "T11",
+      "rule": "every inferred field with a value other than unclear/none/not_applicable has non-empty justification and confidence"
+    },
+    {
+      "id": "T12",
+      "rule": "dimension confidence never exceeds highest individual field confidence"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+title: "SDT AI Agents: Specifications for a Reproducible Social Digital Twin Pipeline"
+message: "If you refer to this work, please cite it using the metadata below. Cite the archived release, not the repository's current state."
+type: software
+authors:
+  - family-names: "Qanazi"
+    given-names: "Saleh"
+    affiliation: "TVES Laboratory, Université de Lille"
+    orcid: "https://orcid.org/0000-0002-8860-9667"
+    email: "saleh.qanaze@najah.edu"
+abstract: >-
+  Full specifications for three researcher-defined AI agents used to construct
+  a Social Digital Twin from social media traces, institutional documents, and
+  urban spatial data. The repository publishes the prompt specifications, input
+  and output schemas, processing rules, validation procedures, and
+  reproducibility protocol for a data preparation agent, a social interpretation
+  agent, and a validation agent. Reproducibility rests on a published
+  specification, a fixed output schema, source traceability, and empirically
+  measured output variance, rather than on deterministic model behaviour.
+keywords:
+  - social digital twin
+  - urban digital twin
+  - smart city
+  - social sensing
+  - large language models
+  - AI agents
+  - reproducibility
+  - socio-technical systems
+  - urban renewal
+license: LicenseRef-Permission-Required
+license-url: "https://github.com/saleh-qanazi/sdt-ai-agents/blob/main/LICENSE"
+repository-code: "https://github.com/saleh-qanazi/sdt-ai-agents"
+version: "1.0.0"
+date-released: "2026-09-03"
